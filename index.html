@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of a Full-Stack Developer & UI/UX Designer specialized in building scalable web applications.">
+    <title>Asaduzzaman Rana</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        dark: {
+                            bg: '#020617',
+                            card: '#0f172a',
+                            border: '#1e293b'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark .glass {
+            background: rgba(2, 6, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-dark-bg text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tighter hover:text-brand-500 transition-colors">
+                Asaduzzaman<span class="text-brand-500">Rana</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="text-sm font-medium hover:text-brand-500 transition-colors">Home</a>
+                <a href="#work" class="text-sm font-medium hover:text-brand-500 transition-colors">Work</a>
+                <a href="#skills" class="text-sm font-medium hover:text-brand-500 transition-colors">Skills</a>
+                <a href="#about" class="text-sm font-medium hover:text-brand-500 transition-colors">About</a>
+                <a href="#contact" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-brand-500/25">
+                    Let's Talk
+                </a>
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                    <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center gap-4">
+                <button onclick="toggleTheme()" class="p-2">
+                    <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                    <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                </button>
+                <button onclick="toggleMenu()" class="p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white/95 dark:bg-dark-bg/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden z-40 flex flex-col justify-center items-center gap-8">
+            <button onclick="toggleMenu()" class="absolute top-6 right-6 p-2">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <a href="#home" onclick="toggleMenu()" class="text-2xl font-bold">Home</a>
+            <a href="#work" onclick="toggleMenu()" class="text-2xl font-bold">Work</a>
+            <a href="#skills" onclick="toggleMenu()" class="text-2xl font-bold">Skills</a>
+            <a href="#contact" onclick="toggleMenu()" class="px-8 py-3 bg-brand-600 text-white rounded-full text-xl font-bold">Let's Talk</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="absolute top-0 -left-4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-[128px] opacity-70 animate-blob dark:mix-blend-lighten"></div>
+        <div class="absolute top-0 -right-4 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-multiply filter blur-[128px] opacity-70 animate-blob animation-delay-2000 dark:mix-blend-lighten"></div>
+        <div class="absolute -bottom-32 left-20 w-96 h-96 bg-pink-500/30 rounded-full mix-blend-multiply filter blur-[128px] opacity-70 animate-blob animation-delay-4000 dark:mix-blend-lighten"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/30 border border-brand-100 dark:border-brand-500/30 text-brand-600 dark:text-brand-400 text-sm font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Available for freelance
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
+                    Building digital <br>
+                    <span class="text-gradient">products</span> that matter.
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                    I'm Asaduzzaman Rana, a Full-Stack Developer & UI/UX Designer. I transform complex problems into beautiful, accessible, and scalable digital solutions.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="#work" class="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform flex items-center gap-2">
+                        View Projects <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border-2 border-slate-200 dark:border-slate-700 hover:border-brand-500 rounded-full font-bold transition-all hover:scale-105">
+                        Contact Me
+                    </a>
+                </div>
+
+                <div class="pt-8 flex gap-6 text-slate-400">
+                    <a href="#" class="hover:text-brand-500 transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
+                    <a href="#" class="hover:text-brand-500 transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                    <a href="#" class="hover:text-brand-500 transition-colors"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                </div>
+            </div>
+
+            <div class="relative hidden lg:block">
+                <div class="relative z-10 rounded-[2.5rem] overflow-hidden rotate-3 hover:rotate-0 transition-all duration-700 shadow-2xl shadow-brand-500/20 border-4 border-white dark:border-slate-800">
+                    <img src="profile.jpg" alt="Asaduzzaman Rana" class="w-full h-auto transform hover:scale-110 transition-transform duration-700">
+                </div>
+                
+                <!-- Floating Stats Card -->
+                <div class="absolute -bottom-10 -left-10 glass p-6 rounded-2xl animate-float shadow-xl z-20">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-blue-500/10 rounded-xl text-blue-500">
+                            <i data-lucide="code-2" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Experience</p>
+                            <p class="text-xl font-bold">5+ Years</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Stats Card 2 -->
+                <div class="absolute -top-10 -right-10 glass p-6 rounded-2xl animate-float animation-delay-2000 shadow-xl z-20">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-purple-500/10 rounded-xl text-purple-500">
+                            <i data-lucide="palette" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Projects</p>
+                            <p class="text-xl font-bold">50+ Done</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900/50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 reveal">
+                <span class="text-brand-500 font-bold uppercase tracking-[0.2em] text-sm mb-4 block">Services</span>
+                <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tighter">My Expertise</h2>
+                <div class="w-20 h-1.5 bg-brand-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Service 1 -->
+                <div class="group relative p-10 rounded-[2.5rem] bg-white dark:bg-dark-card border border-slate-100 dark:border-dark-border hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-500 reveal">
+                    <span class="absolute top-8 right-10 text-6xl font-black text-slate-100 dark:text-slate-800/50 group-hover:text-brand-500/10 transition-colors pointer-events-none">01</span>
+                    
+                    <div class="w-16 h-16 bg-blue-500/10 text-blue-600 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 rotate-3 group-hover:rotate-0">
+                        <i data-lucide="layout" class="w-8 h-8"></i>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black mb-4 group-hover:text-brand-500 transition-colors">Frontend <br>Development</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                        Building responsive, pixel-perfect web interfaces using React, Vue, and Tailwind CSS with a focus on performance and accessibility.
+                    </p>
+                    
+                    <a href="#work" class="inline-flex items-center gap-2 font-bold text-sm uppercase tracking-widest text-brand-500 group/link">
+                        Explore Work 
+                        <i data-lucide="chevron-right" class="w-4 h-4 group-hover/link:translate-x-2 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group relative p-10 rounded-[2.5rem] bg-white dark:bg-dark-card border border-slate-100 dark:border-dark-border hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-500 reveal" style="transition-delay: 0.1s">
+                    <span class="absolute top-8 right-10 text-6xl font-black text-slate-100 dark:text-slate-800/50 group-hover:text-brand-500/10 transition-colors pointer-events-none">02</span>
+                    
+                    <div class="w-16 h-16 bg-purple-500/10 text-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-purple-600 group-hover:text-white transition-all duration-500 -rotate-3 group-hover:rotate-0">
+                        <i data-lucide="server" class="w-8 h-8"></i>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black mb-4 group-hover:text-brand-500 transition-colors">Backend <br>Architecture</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                        Designing robust REST & GraphQL APIs, database modeling (SQL/NoSQL), and scalable cloud infrastructure for high-traffic apps.
+                    </p>
+                    
+                    <a href="#work" class="inline-flex items-center gap-2 font-bold text-sm uppercase tracking-widest text-brand-500 group/link">
+                        Explore Work 
+                        <i data-lucide="chevron-right" class="w-4 h-4 group-hover/link:translate-x-2 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group relative p-10 rounded-[2.5rem] bg-white dark:bg-dark-card border border-slate-100 dark:border-dark-border hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-500 reveal" style="transition-delay: 0.2s">
+                    <span class="absolute top-8 right-10 text-6xl font-black text-slate-100 dark:text-slate-800/50 group-hover:text-brand-500/10 transition-colors pointer-events-none">03</span>
+                    
+                    <div class="w-16 h-16 bg-pink-500/10 text-pink-600 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-pink-600 group-hover:text-white transition-all duration-500 rotate-3 group-hover:rotate-0">
+                        <i data-lucide="smartphone" class="w-8 h-8"></i>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black mb-4 group-hover:text-brand-500 transition-colors">Mobile <br>Development</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                        Creating cross-platform mobile applications for iOS and Android using React Native and Flutter with native-like performance.
+                    </p>
+                    
+                    <a href="#work" class="inline-flex items-center gap-2 font-bold text-sm uppercase tracking-widest text-brand-500 group/link">
+                        Explore Work 
+                        <i data-lucide="chevron-right" class="w-4 h-4 group-hover/link:translate-x-2 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="work" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 reveal">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">Featured Work</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-xl">
+                        A selection of my recent projects ranging from SaaS platforms to mobile applications.
+                    </p>
+                </div>
+                <a href="#" class="hidden md:flex items-center gap-2 font-bold text-brand-500 hover:text-brand-600">
+                    View GitHub <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="group rounded-3xl overflow-hidden bg-white dark:bg-dark-card border border-slate-100 dark:border-dark-border shadow-lg hover:shadow-2xl transition-all duration-300 reveal">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop" alt="Project" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                            <a href="#" class="p-3 bg-white text-slate-900 rounded-full hover:scale-110 transition-transform"><i data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="#" class="p-3 bg-white text-slate-900 rounded-full hover:scale-110 transition-transform"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex gap-2 mb-4">
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-900/20 text-brand-600 text-xs font-bold rounded-lg uppercase tracking-wide">React</span>
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-900/20 text-brand-600 text-xs font-bold rounded-lg uppercase tracking-wide">Node.js</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-500 transition-colors">E-Commerce Platform</h3>
+                        <p class="text-slate-600 dark:text-slate-400">A full-featured online store with Stripe payment integration, admin dashboard, and real-time inventory.</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group rounded-3xl overflow-hidden bg-white dark:bg-dark-card border border-slate-100 dark:border-dark-border shadow-lg hover:shadow-2xl transition-all duration-300 reveal">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop" alt="Project" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                            <a href="#" class="p-3 bg-white text-slate-900 rounded-full hover:scale-110 transition-transform"><i data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="#" class="p-3 bg-white text-slate-900 rounded-full hover:scale-110 transition-transform"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-600 text-xs font-bold rounded-lg uppercase tracking-wide">Mobile</span>
+                            <span class="px-3 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-600 text-xs font-bold rounded-lg uppercase tracking-wide">Flutter</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-500 transition-colors">Finance App UI</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Clean and modern mobile banking interface focused on accessibility and data visualization.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group rounded-3xl overflow-hidden bg-white dark:bg-dark-card border border-slate-100 dark:border-dark-border shadow-lg hover:shadow-2xl transition-all duration-300 reveal">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Project" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                            <a href="#" class="p-3 bg-white text-slate-900 rounded-full hover:scale-110 transition-transform"><i data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="#" class="p-3 bg-white text-slate-900 rounded-full hover:scale-110 transition-transform"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex gap-2 mb-4">
+                            <span class="px-3 py-1 bg-pink-50 dark:bg-pink-900/20 text-pink-600 text-xs font-bold rounded-lg uppercase tracking-wide">AI</span>
+                            <span class="px-3 py-1 bg-pink-50 dark:bg-pink-900/20 text-pink-600 text-xs font-bold rounded-lg uppercase tracking-wide">Python</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-500 transition-colors">Analytics Dashboard</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Real-time data processing dashboard for SaaS metrics using Python and D3.js.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center md:hidden">
+                <a href="#" class="inline-flex items-center gap-2 font-bold text-brand-500">
+                    View GitHub <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Technical <br> <span class="text-brand-500">Proficiency.</span></h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
+                        I constantly stay updated with the latest technologies to deliver cutting-edge solutions. My stack focuses on speed, scalability, and developer experience.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 font-bold text-brand-500 hover:gap-4 transition-all">
+                        Download Resume <i data-lucide="download" class="w-5 h-5"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 reveal">
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-8 h-8" alt="React">
+                        <span class="font-bold text-sm">React</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="w-8 h-8" alt="Node">
+                        <span class="font-bold text-sm">Node.js</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" class="w-8 h-8" alt="Flutter">
+                        <span class="font-bold text-sm">Flutter</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" class="w-8 h-8" alt="Android">
+                        <span class="font-bold text-sm">Android</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="w-8 h-8" alt="MySQL">
+                        <span class="font-bold text-sm">MySQL</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" class="w-8 h-8" alt="PHP">
+                        <span class="font-bold text-sm">PHP</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" class="w-8 h-8" alt="Firebase">
+                        <span class="font-bold text-sm">Firebase</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" class="w-8 h-8" alt="Tailwind">
+                        <span class="font-bold text-sm">Tailwind</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-slate-100 dark:border-dark-border flex items-center gap-3 hover:scale-105 transition-transform">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" class="w-8 h-8" alt="Figma">
+                        <span class="font-bold text-sm">Figma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-slate-900 dark:bg-black"></div>
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-600/20 blur-[120px] rounded-full"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center text-white reveal">
+            <h2 class="text-4xl md:text-6xl font-bold mb-8">Ready to start your next project?</h2>
+            <p class="text-xl text-slate-300 mb-12">I'm currently available for freelance work and open to new opportunities.</p>
+            
+            <a href="mailto:hello@johndoe.com" class="inline-block px-10 py-5 bg-white text-slate-900 rounded-full font-bold text-lg hover:scale-105 hover:shadow-2xl hover:shadow-white/20 transition-all">
+                Say Hello 👋
+            </a>
+
+            <div class="mt-20 pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-500">© <span id="year"></span> Asaduzzaman Rana. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors">GitHub</a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        // Icons
+        lucide.createIcons();
+
+        // Dark Mode Logic
+        const html = document.documentElement;
+        
+        function toggleTheme() {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check Preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        // Mobile Menu
+        const menu = document.getElementById('mobile-menu');
+        function toggleMenu() {
+            menu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('bg-white/80', 'dark:bg-dark-bg/80', 'backdrop-blur-md', 'shadow-sm');
+            } else {
+                nav.classList.remove('bg-white/80', 'dark:bg-dark-bg/80', 'backdrop-blur-md', 'shadow-sm');
+            }
+        });
+
+        // Set Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Reveal Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
